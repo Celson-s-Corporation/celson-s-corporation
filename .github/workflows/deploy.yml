@@ -30,8 +30,19 @@ jobs:
 
       - run: npx ng test --watch=false
 
-      # The site is served from https://<owner>.github.io/<repo>/, so the base href must match.
-      - run: npx ng build --base-href "/${{ github.event.repository.name }}/"
+      # A repo named <owner>.github.io is served from the site root; any other repo is served
+      # from https://<owner>.github.io/<repo>/. The base href must match where it is served.
+      - name: Set base href
+        env:
+          REPO: ${{ github.event.repository.name }}
+        run: |
+          if [[ "${REPO,,}" == *.github.io ]]; then
+            echo "BASE_HREF=/" >> "$GITHUB_ENV"
+          else
+            echo "BASE_HREF=/${REPO}/" >> "$GITHUB_ENV"
+          fi
+
+      - run: npx ng build --base-href "$BASE_HREF"
 
       # GitHub Pages serves 404.html for unknown paths; reusing the app shell lets the Angular
       # router handle deep links such as /projects on a fresh page load.

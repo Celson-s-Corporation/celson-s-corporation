@@ -41,3 +41,9 @@ npm test        # unit tests (vitest)
 any static host (Netlify, Vercel, GitHub Pages, Cloudflare Pages, etc.). This is a
 client-side-rendered SPA — if deploying to a static host, configure it to rewrite all
 routes to `index.html` (so deep links like `/projects` work on refresh).
+
+The live site is deployed to GitHub Pages by `.github/workflows/deploy.yml` on every push to
+`main`. The repo is named `celson-s-corporation.github.io`, which is what makes GitHub serve it
+from the root (https://celson-s-corporation.github.io/) instead of `/<repo>/`. The workflow
+sets the base href from the repo name, so keep that name. The favicon (`public/favicon.svg`,
+`favicon.ico`, `apple-touch-icon.png`) is the C-orbital logo.

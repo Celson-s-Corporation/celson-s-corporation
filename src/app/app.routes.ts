@@ -43,6 +43,12 @@ export const routes: Routes = [
     title: 'Contact — Celson Fernando',
   },
   {
+    // The site used to live at /celson-s-corporation/; GitHub Pages does not redirect old URLs
+    // after the repo rename, so old links land on 404.html and are sent to the same page here.
+    path: 'celson-s-corporation',
+    redirectTo: '',
+  },
+  {
     path: '**',
     loadComponent: () => import('./shared/not-found/not-found').then((m) => m.NotFound),
     title: 'Page not found',
