@@ -1,0 +1,35 @@
+<section class="mx-auto max-w-5xl px-6 py-20">
+  <h1 class="text-3xl font-semibold tracking-tight text-text">Design</h1>
+  <p class="mt-2 max-w-xl text-muted">Visual and creative work outside of code.</p>
+
+  <div class="mt-10 grid gap-6 sm:grid-cols-2">
+    @for (piece of work; track piece.slug) {
+      <article class="overflow-hidden rounded-lg border border-border bg-surface">
+        @if (piece.imageUrl) {
+          <img [src]="piece.imageUrl" [alt]="piece.title" class="aspect-video w-full object-cover" />
+        } @else {
+          <div
+            class="flex aspect-video w-full items-center justify-center bg-surface-2 text-sm text-muted"
+          >
+            Add image: {{ piece.imageUrl || piece.slug }}
+          </div>
+        }
+        <div class="p-6">
+          <p class="text-xs font-medium text-accent">{{ piece.category }}</p>
+          <h2 class="mt-1 font-semibold text-text">{{ piece.title }}</h2>
+          <p class="mt-2 text-sm text-muted">{{ piece.description }}</p>
+          @if (piece.link) {
+            <a
+              [href]="piece.link"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="mt-4 inline-block text-sm font-medium text-accent hover:underline"
+            >
+              View →
+            </a>
+          }
+        </div>
+      </article>
+    }
+  </div>
+</section>

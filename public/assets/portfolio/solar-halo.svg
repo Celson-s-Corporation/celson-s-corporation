@@ -1,0 +1,9 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="422.24" height="422.24" viewBox="0 0 422.24 422.24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle id="Halo solar" cx="211.12" cy="211.12" r="211.12" fill="url(#paint0_radial_0_8)"/>
+<defs>
+<radialGradient id="paint0_radial_0_8" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(211.12 211.12) rotate(90) scale(211.12)">
+<stop stop-color="#D6A65B" stop-opacity="0.12549"/>
+<stop offset="1" stop-color="#D6A65B" stop-opacity="0"/>
+</radialGradient>
+</defs>
+</svg>

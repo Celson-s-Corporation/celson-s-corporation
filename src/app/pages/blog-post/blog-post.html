@@ -1,0 +1,25 @@
+@if (post(); as p) {
+  <article class="mx-auto max-w-3xl px-6 py-20">
+    <a routerLink="/blog" class="text-sm font-medium text-accent hover:underline">← Back to blog</a>
+
+    <p class="mt-6 text-xs font-medium text-muted">{{ p.date | date: 'mediumDate' }}</p>
+    <h1 class="mt-2 text-3xl font-semibold tracking-tight text-text">{{ p.title }}</h1>
+
+    <div class="mt-2 flex flex-wrap gap-2">
+      @for (tag of p.tags; track tag) {
+        <span class="rounded-full bg-surface-2 px-2.5 py-1 text-xs text-muted">{{ tag }}</span>
+      }
+    </div>
+
+    <div class="prose-content mt-8 space-y-4 text-muted">
+      @for (paragraph of p.content; track paragraph) {
+        <p>{{ paragraph }}</p>
+      }
+    </div>
+  </article>
+} @else {
+  <section class="mx-auto flex max-w-3xl flex-col items-start gap-4 px-6 py-20">
+    <h1 class="text-2xl font-semibold text-text">Post not found</h1>
+    <a routerLink="/blog" class="text-sm font-medium text-accent hover:underline">← Back to blog</a>
+  </section>
+}

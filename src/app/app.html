@@ -1,0 +1,13 @@
+<div class="flex min-h-screen flex-col">
+  @if (showChrome()) {
+    <app-header />
+  }
+
+  <main class="flex-1">
+    <router-outlet />
+  </main>
+
+  @if (showChrome()) {
+    <app-footer />
+  }
+</div>

@@ -1,0 +1,16 @@
+<section class="mx-auto max-w-3xl px-6 py-20">
+  <h1 class="text-3xl font-semibold tracking-tight text-text">Blog</h1>
+  <p class="mt-2 max-w-xl text-muted">Notes and articles on things I'm building or learning.</p>
+
+  <div class="mt-10 divide-y divide-border border-t border-border">
+    @for (post of posts; track post.slug) {
+      <a [routerLink]="['/blog', post.slug]" class="group block py-6">
+        <p class="text-xs font-medium text-muted">{{ post.date | date: 'mediumDate' }}</p>
+        <h2 class="mt-1 font-semibold text-text group-hover:text-accent">{{ post.title }}</h2>
+        <p class="mt-2 text-sm text-muted">{{ post.excerpt }}</p>
+      </a>
+    } @empty {
+      <p class="py-10 text-sm text-muted">No posts yet — check back soon.</p>
+    }
+  </div>
+</section>

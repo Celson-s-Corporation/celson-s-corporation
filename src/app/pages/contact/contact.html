@@ -1,0 +1,29 @@
+<section class="mx-auto max-w-2xl px-6 py-20">
+  <h1 class="text-3xl font-semibold tracking-tight text-text">Get in touch</h1>
+  <p class="mt-2 max-w-xl text-muted">
+    The fastest way to reach me is email — feel free to say hello or ask about working together.
+  </p>
+
+  <div class="mt-10 space-y-6">
+    <a
+      [href]="'mailto:' + profile.email"
+      class="block rounded-lg border border-border bg-surface p-6 transition-colors hover:border-accent/50"
+    >
+      <p class="text-xs font-medium text-muted">Email</p>
+      <p class="mt-1 font-semibold text-text">{{ profile.email }}</p>
+    </a>
+
+    <div class="grid gap-4 sm:grid-cols-2">
+      @for (social of profile.socials; track social.label) {
+        <a
+          [href]="social.url"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="rounded-lg border border-border bg-surface p-6 transition-colors hover:border-accent/50"
+        >
+          <p class="font-semibold text-text">{{ social.label }}</p>
+        </a>
+      }
+    </div>
+  </div>
+</section>

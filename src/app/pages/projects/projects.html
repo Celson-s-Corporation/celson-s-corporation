@@ -1,0 +1,42 @@
+<section class="mx-auto max-w-5xl px-6 py-20">
+  <h1 class="text-3xl font-semibold tracking-tight text-text">Projects</h1>
+  <p class="mt-2 max-w-xl text-muted">Software I've built, broken, and (mostly) fixed again.</p>
+
+  <div class="mt-10 grid gap-6 sm:grid-cols-2">
+    @for (project of projects; track project.slug) {
+      <article class="flex flex-col rounded-lg border border-border bg-surface p-6">
+        <h2 class="font-semibold text-text">{{ project.title }}</h2>
+        <p class="mt-2 flex-1 text-sm text-muted">{{ project.description }}</p>
+
+        <div class="mt-4 flex flex-wrap gap-2">
+          @for (tag of project.tags; track tag) {
+            <span class="rounded-full bg-surface-2 px-2.5 py-1 text-xs text-muted">{{ tag }}</span>
+          }
+        </div>
+
+        <div class="mt-5 flex gap-4 text-sm">
+          @if (project.githubUrl) {
+            <a
+              [href]="project.githubUrl"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="font-medium text-accent hover:underline"
+            >
+              Code →
+            </a>
+          }
+          @if (project.demoUrl) {
+            <a
+              [href]="project.demoUrl"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="font-medium text-accent hover:underline"
+            >
+              Live demo →
+            </a>
+          }
+        </div>
+      </article>
+    }
+  </div>
+</section>

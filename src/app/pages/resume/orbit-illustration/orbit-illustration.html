@@ -1,0 +1,23 @@
+<div class="relative mx-auto aspect-[568/410] w-full max-w-[568px]" aria-hidden="true">
+  @for (layer of layers; track layer.src) {
+    <div
+      class="absolute"
+      [style.left.%]="layer.left"
+      [style.top.%]="layer.top"
+      [style.width.%]="layer.width"
+      [style.height.%]="layer.height"
+    >
+      <div class="absolute" [style.inset]="layer.inset">
+        <img [src]="layer.src" alt="" class="block size-full max-w-none" />
+      </div>
+    </div>
+  }
+
+  <p
+    class="absolute text-[9px] leading-[normal] whitespace-nowrap text-mist-dim"
+    [style.left.%]="captionLeft"
+    [style.top.%]="captionTop"
+  >
+    <ng-content />
+  </p>
+</div>

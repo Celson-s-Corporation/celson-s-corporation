@@ -1,0 +1,11 @@
+@if (fragment(); as target) {
+  <a routerLink="." [fragment]="target" [class]="classes()">
+    {{ label() }}
+    <img [src]="iconSrc()" width="16" height="16" alt="" />
+  </a>
+} @else {
+  <a [href]="href()" [class]="classes()">
+    {{ label() }}
+    <img [src]="iconSrc()" width="16" height="16" alt="" />
+  </a>
+}

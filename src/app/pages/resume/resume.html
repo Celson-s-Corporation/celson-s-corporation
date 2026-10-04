@@ -1,0 +1,394 @@
+<div id="topo" lang="pt-BR" class="bg-ink font-sans text-paper">
+  <!-- Apresentação -->
+  <div class="page-container">
+    <header
+      class="flex flex-wrap items-center justify-between gap-x-6 gap-y-3 py-5 lg:h-[104px] lg:py-0"
+    >
+      <div class="flex items-center gap-2.5">
+        <img src="assets/portfolio/c-orbital-symbol-44.svg" width="44" height="44" alt="" />
+        <p
+          class="font-serif text-[25px] leading-[normal] font-semibold whitespace-nowrap text-cream"
+        >
+          {{ resume.brand }}
+        </p>
+      </div>
+
+      <nav aria-label="Seções da página">
+        <ul class="flex gap-6 text-xs leading-[normal] whitespace-nowrap sm:gap-8">
+          @for (item of resume.nav; track item.fragment) {
+            <li>
+              <a
+                routerLink="."
+                [fragment]="item.fragment"
+                class="transition-colors"
+                [class]="
+                  item.highlight ? 'text-gold hover:text-paper' : 'text-mist hover:text-paper'
+                "
+              >
+                {{ item.label }}
+              </a>
+            </li>
+          }
+        </ul>
+      </nav>
+    </header>
+
+    <div class="h-px w-full bg-line" aria-hidden="true"></div>
+
+    <section
+      aria-labelledby="hero-title"
+      class="grid items-center gap-8 py-12 lg:grid-cols-[minmax(0,680fr)_minmax(0,568fr)] lg:py-16"
+    >
+      <div class="flex flex-col items-start gap-6">
+        <p class="text-[11px] leading-[1.4] text-gold">{{ resume.hero.kicker }}</p>
+
+        <h1
+          id="hero-title"
+          class="font-serif text-5xl leading-[1.03] text-paper sm:text-6xl xl:text-[76px]"
+        >
+          {{ resume.hero.titleLines[0] }}
+          <span class="block text-gold">{{ resume.hero.titleLines[1] }}</span>
+        </h1>
+
+        <div class="flex w-full flex-col gap-2">
+          <p class="text-lg leading-normal font-medium text-paper">{{ resume.fullName }}</p>
+          <p class="text-[15px] leading-[1.7] text-mist">{{ resume.hero.summary }}</p>
+        </div>
+
+        <div class="flex flex-wrap gap-4">
+          <app-action-link [label]="resume.hero.primaryAction" fragment="contato" />
+          <app-action-link
+            [label]="resume.hero.secondaryAction"
+            variant="secondary"
+            icon="arrow-down"
+            fragment="experiencia"
+          />
+        </div>
+
+        <p class="text-[11px] leading-[normal] whitespace-nowrap text-mist-dim uppercase">
+          {{ resume.location }}
+        </p>
+      </div>
+
+      <app-orbit-illustration>{{ resume.hero.illustrationCaption }}</app-orbit-illustration>
+    </section>
+
+    <div class="h-px w-full bg-line" aria-hidden="true"></div>
+
+    <div class="flex flex-wrap items-start justify-between gap-x-6 gap-y-2 py-5 leading-[normal]">
+      <p class="font-serif text-[23px] text-paper">{{ resume.hero.signature }}</p>
+      <p class="text-[10px] text-gold">{{ resume.hero.signatureStack }}</p>
+    </div>
+  </div>
+
+  <!-- 01 / Sobre o núcleo -->
+  <section id="sobre" aria-labelledby="sobre-title" class="page-container py-16 lg:py-20">
+    <div class="grid gap-8 lg:grid-cols-2">
+      <div class="flex flex-col items-start gap-6">
+        <app-section-heading
+          [eyebrow]="resume.about.eyebrow"
+          [title]="resume.about.title"
+          titleId="sobre-title"
+        />
+        <p class="font-serif text-[42px] leading-[normal] whitespace-nowrap text-gold">
+          {{ resume.about.stat }}
+        </p>
+        <p class="text-xs leading-[normal] text-mist">{{ resume.about.statLabel }}</p>
+      </div>
+
+      <div class="flex flex-col items-start gap-5 leading-[1.7]">
+        @for (paragraph of resume.about.paragraphs; track $index) {
+          <p class="w-full text-[15px] text-mist">{{ paragraph }}</p>
+        }
+        <p class="w-full text-xs leading-[1.7] text-gold">{{ resume.about.pillars }}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 / Expertise & stack -->
+  <div class="bg-ink-2">
+    <section
+      aria-labelledby="stack-title"
+      class="page-container flex flex-col gap-8 py-16 lg:py-20"
+    >
+      <app-section-heading
+        [eyebrow]="resume.expertise.eyebrow"
+        [title]="resume.expertise.title"
+        titleId="stack-title"
+      />
+      <p class="text-[15px] leading-[1.7] text-mist">{{ resume.expertise.intro }}</p>
+
+      <ul class="grid items-start gap-6 lg:grid-cols-2">
+        @for (area of resume.expertise.areas; track area.title) {
+          <!-- Cards are inset 24px (32px for domains) from the outer edge: padding minus 1px border. -->
+          <li class="flex flex-col items-start gap-4 rounded-lg border border-line p-[23px]">
+            <img [src]="'assets/portfolio/' + area.icon + '.svg'" width="24" height="24" alt="" />
+            <h3 class="font-serif text-[29px] leading-[normal] text-paper">{{ area.title }}</h3>
+            <p class="text-[15px] leading-[1.7] text-mist">{{ area.description }}</p>
+            <app-tag-list [tags]="area.tags" />
+          </li>
+        }
+      </ul>
+    </section>
+  </div>
+
+  <!-- 03 / Experiência -->
+  <section
+    id="experiencia"
+    aria-labelledby="experiencia-title"
+    class="page-container flex flex-col gap-10 py-16 lg:py-20"
+  >
+    <app-section-heading
+      [eyebrow]="resume.experience.eyebrow"
+      [title]="resume.experience.title"
+      titleId="experiencia-title"
+    />
+
+    <ol class="flex flex-col">
+      @for (entry of resume.experience.entries; track entry.company) {
+        <li class="flex flex-col gap-6 border-t border-line py-8 lg:flex-row lg:gap-12">
+          <div class="flex flex-col items-start gap-3 lg:w-[280px] lg:shrink-0">
+            <div class="flex items-center gap-3">
+              <img
+                [src]="
+                  entry.current
+                    ? 'assets/portfolio/milestone-current.svg'
+                    : 'assets/portfolio/milestone-past.svg'
+                "
+                width="8"
+                height="8"
+                alt=""
+              />
+              <p class="text-xs leading-[normal] whitespace-nowrap text-gold">{{ entry.period }}</p>
+            </div>
+            <p class="text-[11px] leading-normal text-mist-dim">{{ entry.location }}</p>
+            @if (entry.badge) {
+              <p class="text-[10px] leading-[normal] whitespace-nowrap text-gold">
+                {{ entry.badge }}
+              </p>
+            }
+          </div>
+
+          <div class="flex min-w-0 flex-1 flex-col items-start gap-4">
+            <h3 class="w-full font-serif text-4xl leading-[1.1] text-paper">{{ entry.company }}</h3>
+            <p class="w-full text-xs leading-[normal] text-mist">{{ entry.role }}</p>
+            <p class="w-full text-sm leading-normal font-medium text-paper">{{ entry.headline }}</p>
+            @for (paragraph of entry.paragraphs; track $index) {
+              <p class="w-full text-[15px] leading-[1.7] text-mist">{{ paragraph }}</p>
+            }
+            <app-tag-list [tags]="entry.tags" />
+          </div>
+        </li>
+      }
+    </ol>
+  </section>
+
+  <!-- 04 / Frentes de atuação -->
+  <div class="bg-ink-2">
+    <section
+      id="atuacao"
+      aria-labelledby="atuacao-title"
+      class="page-container flex flex-col gap-8 py-16 lg:py-20"
+    >
+      <app-section-heading
+        [eyebrow]="resume.domains.eyebrow"
+        [title]="resume.domains.title"
+        titleId="atuacao-title"
+      />
+      <p class="text-[15px] leading-[1.7] text-mist">{{ resume.domains.intro }}</p>
+
+      <ul class="grid items-start gap-6 lg:grid-cols-3">
+        @for (domain of resume.domains.items; track domain.title) {
+          <li class="flex flex-col items-start gap-5 rounded-lg border border-line bg-ink p-[31px]">
+            <div class="flex w-full items-center justify-between">
+              <img
+                [src]="'assets/portfolio/' + domain.icon + '.svg'"
+                width="32"
+                height="32"
+                alt=""
+              />
+              <p class="text-[9px] leading-[normal] whitespace-nowrap text-mist-dim">
+                {{ resume.domains.kicker }}
+              </p>
+            </div>
+            <h3 class="w-full font-serif text-[32px] leading-[1.1] text-paper">
+              {{ domain.title }}
+            </h3>
+            <p class="w-full text-[9px] leading-[1.6] text-gold">{{ domain.scope }}</p>
+            <p class="w-full text-[15px] leading-[1.7] text-mist">{{ domain.description }}</p>
+            <p class="w-full text-[11px] leading-[1.7] text-mist-dim">{{ domain.stack }}</p>
+          </li>
+        }
+      </ul>
+    </section>
+  </div>
+
+  <!-- 05 / Formação & idiomas -->
+  <section
+    aria-labelledby="formacao-title"
+    class="page-container flex flex-col gap-14 py-16 lg:py-20"
+  >
+    <app-section-heading
+      [eyebrow]="resume.education.eyebrow"
+      [title]="resume.education.title"
+      titleId="formacao-title"
+    />
+
+    <div class="grid gap-12 lg:grid-cols-[minmax(0,1fr)_410px] lg:gap-16">
+      <div class="flex flex-col items-start gap-7">
+        <p class="text-[11px] leading-[normal] whitespace-nowrap text-gold">
+          {{ resume.education.degreesLabel }}
+        </p>
+
+        @for (degree of resume.education.degrees; track degree.title) {
+          <div class="flex w-full flex-col gap-3 border-t border-line pt-3">
+            <h3 class="font-serif text-[30px] leading-[1.2] text-paper">{{ degree.title }}</h3>
+            <p class="text-sm leading-[1.6] text-paper">{{ degree.institution }}</p>
+            <p class="text-[11px] leading-[1.6] text-mist">{{ degree.period }}</p>
+            <p class="text-[11px] leading-[1.6] text-mist-dim">{{ degree.location }}</p>
+          </div>
+        }
+      </div>
+
+      <div class="flex flex-col items-start gap-6">
+        <p class="text-[11px] leading-[normal] whitespace-nowrap text-gold">
+          {{ resume.education.languagesLabel }}
+        </p>
+        <div class="h-px w-full bg-line" aria-hidden="true"></div>
+
+        <div class="flex w-full items-start justify-between leading-[normal] whitespace-nowrap">
+          <p class="font-serif text-[30px] text-paper">{{ resume.education.native.name }}</p>
+          <p class="text-xs text-gold">{{ resume.education.native.level }}</p>
+        </div>
+
+        <div class="flex w-full flex-col items-start gap-4">
+          <p class="font-serif text-[30px] leading-[normal] whitespace-nowrap text-paper">
+            {{ resume.education.foreign.name }}
+          </p>
+          <p class="text-[10px] leading-[normal] whitespace-nowrap text-mist-dim">
+            {{ resume.education.foreign.scaleLabel }}
+          </p>
+
+          <ul class="flex w-full flex-col gap-4">
+            @for (item of resume.education.foreign.skills; track item.skill) {
+              <li class="flex flex-col gap-3">
+                <p
+                  class="flex items-start justify-between text-[13px] leading-[normal] whitespace-nowrap"
+                >
+                  <span class="text-mist">{{ item.skill }}</span>
+                  <span class="font-semibold text-gold">{{ item.level }}</span>
+                </p>
+                <div class="h-px w-full bg-line" aria-hidden="true"></div>
+              </li>
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 / Contato + rodapé -->
+  <div class="bg-ink-2">
+    <div class="page-container flex flex-col gap-14 pt-16 pb-8 lg:pt-20">
+      <section
+        id="contato"
+        aria-labelledby="contato-title"
+        class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_500px]"
+      >
+        <div class="flex flex-col items-start gap-6">
+          <app-section-heading
+            [eyebrow]="resume.contact.eyebrow"
+            [title]="resume.contact.title"
+            titleId="contato-title"
+          />
+          <p class="text-[15px] leading-[1.7] text-mist">{{ resume.contact.intro }}</p>
+          <app-action-link [label]="resume.contact.action" [href]="mailto" />
+        </div>
+
+        <div class="flex flex-col items-start gap-6">
+          <div class="flex w-full flex-col gap-2">
+            <p class="text-[10px] leading-[normal] whitespace-nowrap text-gold">
+              {{ resume.contact.emailLabel }}
+            </p>
+            <a
+              [href]="mailto"
+              class="text-lg leading-normal break-all text-paper transition-colors hover:text-gold"
+            >
+              {{ resume.contact.email }}
+            </a>
+          </div>
+
+          <div class="h-px w-full bg-line" aria-hidden="true"></div>
+
+          <div class="flex w-full flex-col gap-2">
+            <p class="text-[10px] leading-[normal] whitespace-nowrap text-gold">
+              {{ resume.contact.phoneLabel }}
+            </p>
+            <a
+              [href]="resume.contact.phoneHref"
+              class="text-lg leading-[normal] whitespace-nowrap text-paper transition-colors hover:text-gold"
+            >
+              {{ resume.contact.phone }}
+            </a>
+          </div>
+
+          <div class="h-px w-full bg-line" aria-hidden="true"></div>
+
+          <ul class="flex w-full gap-6 leading-[normal] whitespace-nowrap">
+            @for (profile of resume.contact.profiles; track profile.label) {
+              <li class="flex flex-col gap-2">
+                <p class="text-[10px] text-gold">{{ profile.label }}</p>
+                @if (profile.url; as url) {
+                  <a
+                    [href]="url"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-[13px] text-mist transition-colors hover:text-paper"
+                  >
+                    {{ profile.handle }}
+                  </a>
+                } @else {
+                  <p class="text-[13px] text-mist">{{ profile.handle }}</p>
+                }
+              </li>
+            }
+          </ul>
+
+          <p class="text-xs leading-[normal] whitespace-nowrap text-mist-dim">
+            {{ resume.location }}
+          </p>
+        </div>
+      </section>
+
+      <footer class="flex flex-col gap-6">
+        <div class="h-px w-full bg-line" aria-hidden="true"></div>
+
+        <div class="flex flex-wrap items-start gap-6">
+          <div class="flex min-w-0 flex-1 flex-col gap-2">
+            <div class="flex items-center gap-2.5">
+              <img src="assets/portfolio/c-orbital-symbol-36.svg" width="36" height="36" alt="" />
+              <p
+                class="font-serif text-[21px] leading-[normal] font-semibold whitespace-nowrap text-cream"
+              >
+                {{ resume.brand }}
+              </p>
+            </div>
+            <p class="font-serif text-lg leading-[normal] whitespace-nowrap text-mist">
+              {{ resume.footer.tagline }}
+            </p>
+          </div>
+
+          <a
+            routerLink="."
+            fragment="topo"
+            class="text-[11px] leading-[normal] whitespace-nowrap text-gold transition-colors hover:text-paper"
+          >
+            {{ resume.footer.backToTop }}
+          </a>
+        </div>
+
+        <p class="w-full text-[9px] leading-[1.6] text-mist-dim">{{ resume.footer.credit }}</p>
+      </footer>
+    </div>
+  </div>
+</div>

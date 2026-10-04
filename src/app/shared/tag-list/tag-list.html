@@ -1,0 +1,10 @@
+<ul class="flex w-full flex-wrap content-start gap-2">
+  <!-- Padding is 10px/6px from the chip's outer edge in the design, i.e. minus the 1px border. -->
+  @for (tag of tags(); track tag) {
+    <li
+      class="rounded border border-line bg-ink px-[9px] py-[5px] text-[11px] leading-[normal] whitespace-nowrap text-mist"
+    >
+      {{ tag }}
+    </li>
+  }
+</ul>

@@ -1,0 +1,54 @@
+<header class="sticky top-0 z-50 border-b border-border/80 bg-base/80 backdrop-blur-md">
+  <div class="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
+    <a
+      routerLink="/"
+      (click)="closeMenu()"
+      class="font-semibold tracking-tight text-text hover:text-accent transition-colors"
+    >
+      Celson<span class="text-accent">.</span>dev
+    </a>
+
+    <nav class="hidden items-center gap-1 md:flex">
+      @for (link of navLinks; track link.path) {
+        <a
+          [routerLink]="link.path"
+          routerLinkActive="text-text bg-surface-2"
+          [routerLinkActiveOptions]="{ exact: link.path === '/' }"
+          class="rounded-md px-3 py-2 text-sm text-muted transition-colors hover:text-text hover:bg-surface-2"
+        >
+          {{ link.label }}
+        </a>
+      }
+    </nav>
+
+    <button
+      type="button"
+      (click)="toggleMenu()"
+      class="inline-flex h-9 w-9 items-center justify-center rounded-md border border-border text-muted hover:text-text md:hidden"
+      [attr.aria-expanded]="menuOpen()"
+      aria-label="Toggle navigation menu"
+    >
+      @if (menuOpen()) {
+        <span aria-hidden="true">✕</span>
+      } @else {
+        <span aria-hidden="true">☰</span>
+      }
+    </button>
+  </div>
+
+  @if (menuOpen()) {
+    <nav class="flex flex-col gap-1 border-t border-border px-6 py-3 md:hidden">
+      @for (link of navLinks; track link.path) {
+        <a
+          [routerLink]="link.path"
+          (click)="closeMenu()"
+          routerLinkActive="text-text bg-surface-2"
+          [routerLinkActiveOptions]="{ exact: link.path === '/' }"
+          class="rounded-md px-3 py-2 text-sm text-muted transition-colors hover:text-text hover:bg-surface-2"
+        >
+          {{ link.label }}
+        </a>
+      }
+    </nav>
+  }
+</header>

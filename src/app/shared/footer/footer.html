@@ -1,0 +1,20 @@
+<footer class="border-t border-border">
+  <div
+    class="mx-auto flex max-w-5xl flex-col items-center gap-4 px-6 py-10 text-sm text-muted sm:flex-row sm:justify-between"
+  >
+    <p>© {{ year }} {{ profile.name }}. All rights reserved.</p>
+
+    <div class="flex items-center gap-5">
+      @for (social of profile.socials; track social.label) {
+        <a
+          [href]="social.url"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="transition-colors hover:text-text"
+        >
+          {{ social.label }}
+        </a>
+      }
+    </div>
+  </div>
+</footer>
